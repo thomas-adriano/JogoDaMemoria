@@ -1,1 +1,0 @@
-Substituir o fonte do arquivo do proteus com o conteudo de src

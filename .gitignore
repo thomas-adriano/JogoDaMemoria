@@ -1,1 +1,4 @@
-*.txt~
+*.*~
+*.pdsbak
+8086/Debug
+*.workspace
