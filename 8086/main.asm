@@ -771,15 +771,15 @@ INICIO:
 	 CALL PRINT_INICIO
 JOGAR:
 	 
-	 CALL SELECIONA_NUMERO ; RETORNA AX = numero e BX = desenho
+	 CALL RAND_NUMERO ; RETORNA AX = numero e BX = desenho
 	 MOV NUM1, DL ;ROTINA SELECIONA_NUMERO FAZ PUSH DO NUMERO RANDOMICO, POR ISSO O POP APÓS CHAMA-LA
 	 CALL PRINT_JOGAR ; imprime jogada com offset do numero em BX
 	 
-	 CALL SELECIONA_NUMERO
+	 CALL RAND_NUMERO
 	 MOV NUM2, DL
 	 CALL PRINT_JOGAR ; imprime jogada com offset do numero em BX
 	 
-	 CALL SELECIONA_NUMERO
+	 CALL RAND_NUMERO
 	 MOV NUM3, DL
 	 CALL PRINT_JOGAR ; imprime jogada com offset do numero em BX
 	 
@@ -955,31 +955,31 @@ CARREGA_NOVE:
 ; TEM ALGO NESSE RANDOM QUE ESTÁ GERANDO O ERRO unknown 1-byte opcode at 000:0404! 6E
 ; ACREDITE.. EU PROCUREI, MAS NAO ACHEI. :(
 RANDOM:
-PUSHF
-PUSH AX
-PUSH CX
-PUSH DX
+	 PUSHF
+	 PUSH AX
+	 PUSH CX
+	 PUSH DX
 
-MOV AX, SEED ;; AX = seed
+	 MOV AX, SEED ;; AX = seed
 
-ADD AL, CONTADOR_SEED ; ATUALIZADO A CADA 1 SEGUNDO VIA INTERRUPT
+	 ADD AL, CONTADOR_SEED ; ATUALIZADO A CADA 1 SEGUNDO VIA INTERRUPT
 
-MOV DX, 8405h ;; DX = 8405h
-MUL DX ;; MUL (8405h * SEED) into dword DX:AX
+	 MOV DX, 8405h ;; DX = 8405h
+	 MUL DX ;; MUL (8405h * SEED) into dword DX:AX
 
-CMP AX,	SEED
-JNZ GOTSEED ;; if new SEED = old SEED, alter SEED
-MOV AH, DL	
-INC AX
-GOTSEED:
-MOV SEED, AX ;; We have a new seed, so store it
-MOV AX, DX ;; AL = random number
-MOV RNDNUM, AX
-POP DX
-POP CX
-POP AX
-POPF
-RET
+	 CMP AX,	SEED
+	 JNZ GOTSEED ;; if new SEED = old SEED, alter SEED
+	 MOV AH, DL	
+	 INC AX
+      GOTSEED:
+	 MOV SEED, AX ;; We have a new seed, so store it
+	 MOV AX, DX ;; AL = random number
+	 MOV RNDNUM, AX
+	 POP DX
+	 POP CX
+	 POP AX
+	 POPF
+	 RET
 
 ;------------------------------------------------------------	
 	 
