@@ -826,8 +826,8 @@ JOGAR:
 	 CMP AL, UNUM2
 	 JNE ERROU
 	 
-	 MOV AL, NUM2
-	 CMP AL, UNUM2
+	 MOV AL, NUM3
+	 CMP AL, UNUM3
 	 JNE ERROU
 	 
 	 ; Acertou
